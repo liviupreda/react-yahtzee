@@ -3,7 +3,7 @@ import "./RuleRow.css";
 
 class RuleRow extends Component {
   render() {
-    const { score, name, doScore } = this.props;
+    const { score, name, doScore, description } = this.props;
     const undefScore = score === undefined;
     return (
       <tr
@@ -11,7 +11,7 @@ class RuleRow extends Component {
         onClick={undefScore ? doScore : null}
       >
         <td className="RuleRow-name">{name}</td>
-        <td className="RuleRow-score">{score}</td>
+        <td className="RuleRow-score">{undefScore ? description : score}</td>
       </tr>
     );
   }
