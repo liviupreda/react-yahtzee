@@ -10,7 +10,7 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dice: Array.from({ length: NUM_DICE }).map(d => 5),
+      dice: Array.from({ length: NUM_DICE }),
       locked: Array(NUM_DICE).fill(false),
       rollsLeft: NUM_ROLLS,
       rolling: false,
@@ -60,7 +60,7 @@ class Game extends Component {
 
   toggleLocked(idx) {
     // toggle whether idx is locked or not
-    if (this.state.rollsLeft) {
+    if (this.state.rollsLeft && !this.state.rolling) {
       this.setState(st => ({
         locked: [
           ...st.locked.slice(0, idx),
@@ -99,7 +99,9 @@ class Game extends Component {
               <button
                 className="Game-reroll"
                 disabled={
-                  this.state.locked.every(x => x) || this.state.rollsLeft === 0
+                  this.state.locked.every(x => x) ||
+                  this.state.rollsLeft === 0 ||
+                  this.state.rolling
                 }
                 onClick={this.animateRoll}
               >
