@@ -34,6 +34,7 @@ class Game extends Component {
     this.doScore = this.doScore.bind(this);
     this.toggleLocked = this.toggleLocked.bind(this);
     this.animateRoll = this.animateRoll.bind(this);
+    this.displayRollInfo = this.displayRollInfo.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +79,17 @@ class Game extends Component {
       rollsLeft: NUM_ROLLS,
       locked: Array(NUM_DICE).fill(false)
     }));
-    this.roll();
+    this.animateRoll();
+  }
+
+  displayRollInfo() {
+    const messages = [
+      "No Rolls Left",
+      "1 Roll Left",
+      "2 Rolls Left",
+      "Starting Round"
+    ];
+    return messages[this.state.rollsLeft];
   }
 
   render() {
@@ -105,7 +116,7 @@ class Game extends Component {
                 }
                 onClick={this.animateRoll}
               >
-                {this.state.rollsLeft} Rerolls Left
+                {this.displayRollInfo()}
               </button>
             </div>
           </section>
